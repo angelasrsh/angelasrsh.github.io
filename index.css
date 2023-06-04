@@ -1,4 +1,14 @@
 .test {
-    text-align:center;
-    color: rgb(165, 158, 244);
+    font-size: 100px;
+    text-align:left;
+    align-content: center;
+    
+    color: rgb(0, 0, 0);
+    padding: 10px;
+}
+
+.line-1 {
+    height: 100px;
+    width: 1px;
+    background-color:black
 }
