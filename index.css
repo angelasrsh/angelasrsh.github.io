@@ -76,6 +76,9 @@ html {
 .navbar_item {
     height:80px;
 }
+.navbar_item a:hover {
+    color: rgb(13, 106, 205);
+}
 .navbar_links {
     color: rgb(255, 255, 255);
     display: flex;
@@ -105,14 +108,17 @@ html {
     border: none;
     outline: none;
     border-radius: 4px;
-    background: rgb(50, 144, 226);
-    color: white;
+    background: rgb(88, 162, 227);
+    color:white;
 }
 
  
 .button:hover {
-    background: lightblue;
+    
     transition: all .3s ease;
+    
+    background: rgb(204, 231, 255);
+    color: rgb(48, 132, 251);
 }
 
 @media screen and (max-width:960px) {
@@ -319,6 +325,34 @@ html {
 
 }
 
+.MyProjects_link {
+    display: grid;
+    padding-top: 50px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    /* justify-self: center; */
+    margin: 0 auto;
+    /* height: 90vh; */
+    /* background-color: blue; */
+    z-index: 1;
+    /* width: 100%; */
+    max-width: 1300px;
+    /* padding: 25px; */
+    text-align: left;
+    overflow: auto;
+}
+
+.MyProjects_link a {
+    padding-left: 100px;
+    color:rgb(126, 189, 255);
+}
+
+.MyProjects_link a:visited {
+    color:rgb(126, 189, 255);   
+}
+.MyProjects_link a:hover {
+    color:rgb(79, 153, 232);   
+}
 
 @media screen and (max-width:760px) {
     .main_container {
@@ -394,6 +428,29 @@ html {
         bottom: 180px;
         /* opacity:0%; */
     }
+    .MyProjects_link {
+    display: grid;
+    padding-top: 50px;
+    align-items: center;
+    /* justify-self: center; */
+    margin: 0 auto;
+    /* height: 90vh; */
+    /* background-color: blue; */
+    z-index: 1;
+    /* width: 100%; */
+    max-width: 1300px;
+    /* padding: 25px; */
+    text-align: left;
+    overflow: auto;
+    }
+    .MyProjects_link h1 {
+        padding-left: 20px;
+        text-align: left;
+    }
+    .MyProjects_link a {
+        text-align: center;
+        padding-left:0px;
+    }
 
 }
 @media screen and (max-width:480px) {
@@ -453,6 +510,7 @@ html {
 #About h1 {
     font-size: 4.5rem; 
     line-height: 40px;
+    padding-top: 40px;
 }
 #About p {
     padding-top: 40px;
