@@ -563,6 +563,7 @@ html {
 .blog .container .post:hover {
     transform: translate(0px, -5px);
     
+    
 }
 .blog .container .post .blog-img {
     width: 100%;
@@ -597,9 +598,13 @@ html {
     font-size: 1.4rem;
     color: var(--para-font);
 }
+/* TODO: fix the filter and brightness to work properly */
 .blog .container .post:hover img {
     transform: scale(1.1);
+    filter: brightness(100%);
+    
 }
+
 .blog .container .post .blog-img span {
     position: absolute;
     background: var(--bg);
