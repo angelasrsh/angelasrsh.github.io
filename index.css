@@ -570,6 +570,7 @@ html {
     overflow: hidden;
     position: relative;
     border-radius: 10px;
+    filter: brightness(80%);
     
 }
 .blog .container .post .blog-img img {
@@ -585,7 +586,7 @@ html {
     letter-spacing: 0.1rem;
 }
 .blog .container .post .blog-content h3 span {
-    color: var(--bg);
+    color: var(--black);
 }
 .blog .container .post .blog-content h1 {
     font-size: 2rem;
