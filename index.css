@@ -232,6 +232,7 @@ html {
     /* padding: 25px; */
     text-align: left;
     overflow: auto;
+    padding-top: 25px;
 }
 
 
@@ -345,6 +346,8 @@ html {
 .MyProjects_link a {
     padding-left: 100px;
     color:rgb(126, 189, 255);
+    text-decoration: none;
+
 }
 
 .MyProjects_link a:visited {
@@ -535,4 +538,84 @@ html {
     background-color:black;
     position: absolute;
 } */
+
+.blog {
+    padding:100px;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.blog .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+    gap: 2rem;
+    padding: 2.5rem 0;
+}
+.blog .container .post {
+    border: 0.2rem solid var(--bg);
+    border-radius: 10px;
+    height: auto;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 0px rgb(72, 139, 234);
+    /* transition: 0.4s linear all; */
+    transition: all 0.35s;
+}
+.blog .container .post:hover {
+    transform: translate(0px, -5px);
+    
+}
+.blog .container .post .blog-img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    
+}
+.blog .container .post .blog-img img {
+    width: 100%;
+    height: auto;
+}
+.blog .container .post .blog-content {
+    padding: 2rem;
+}
+.blog .container .post .blog-content h3 {
+    font-size: 1.6rem;
+    padding: 1.3rem 0;
+    letter-spacing: 0.1rem;
+}
+.blog .container .post .blog-content h3 span {
+    color: var(--bg);
+}
+.blog .container .post .blog-content h1 {
+    font-size: 2rem;
+    color: var(--black);
+    padding-bottom: 2rem;
+}
+.blog .container .post .blog-content p {
+    font-size: 1.4rem;
+    color: var(--para-font);
+}
+.blog .container .post:hover img {
+    transform: scale(1.1);
+}
+.blog .container .post .blog-img span {
+    position: absolute;
+    background: var(--bg);
+    bottom: 5%;
+    right: 5%;
+    padding: 1.2rem 1.4rem;
+    color: var(--white);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.blog.heading {
+    font-size: 1rem;
+}
+.blog.heading-description {
+    font-size: 0.5rem;
+}
 
