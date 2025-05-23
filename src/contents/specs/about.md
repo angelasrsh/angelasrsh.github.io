@@ -1,5 +1,10 @@
-# Special thanks to:
+# Student. Engineer. Creative. 
 
-- [Hexo Shoka theme](https://github.com/amehime/hexo-theme-shoka) for providing design inspiration
+I'm an Electrical and Computer Engineering student at the University of Texas at Austin. With a focus on integrated circuits and systems design, I work on creative and impactful projects. Feel free to reach out!
 
-- [Astro Fuwari template](https://github.com/saicaca/fuwari) for providing the main design concept and part of the implementation
+Contact Me: 
+-------------------------
+Email: <angelasrsh@gmail.com> <br />
+LinkedIn: <https://www.linkedin.com/in/angela-suresh/>
+
+

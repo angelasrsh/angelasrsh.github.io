@@ -2,13 +2,13 @@ import I18nKeys from "./src/locales/keys";
 import type { Configuration } from "./src/types/config";
 
 const YukinaConfig: Configuration = {
-  title: "Yukina",
-  subTitle: "Yukina Template Demo Site",
-  brandTitle: "Yukina",
+  title: "Angela Suresh",
+  subTitle: "My Personal Website",
+  brandTitle: "Angela Suresh",
 
-  description: "Demo Site",
+  description: "Welcome to my personal website. Theme Created by WhitePaper. Edited with Astro",
 
-  site: "https://yukina-blog.vercel.app",
+  site: "https://angelasrsh.github.io/",
 
   locale: "en", // set for website language and date format
 
@@ -18,16 +18,29 @@ const YukinaConfig: Configuration = {
       href: "/",
     },
     {
-      nameKey: I18nKeys.nav_bar_archive,
-      href: "/archive",
-    },
-    {
       nameKey: I18nKeys.nav_bar_about,
       href: "/about",
     },
     {
+      nameKey: I18nKeys.nav_bar_engineering,
+      href: "/engineering",
+    },
+    {
+      nameKey: I18nKeys.nav_bar_blog,
+      href: "/blog",
+    },
+    // {
+    //   nameKey: I18nKeys.nav_bar_archive,
+    //   href: "/archive",
+    // },
+    // {
+    //   nameKey: I18nKeys.nav_bar_portfolio,
+    //   href: "/portfolio",
+    // },
+    
+    {
       nameKey: I18nKeys.nav_bar_github,
-      href: "https://github.com/WhitePaper233/yukina",
+      href: "https://github.com/angelasrsh",
     },
   ],
 

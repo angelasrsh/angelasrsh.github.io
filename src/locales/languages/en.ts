@@ -7,8 +7,11 @@ export const en: Translation = {
   [key.copy_right_license]: "License",
 
   [key.nav_bar_home]: "Home",
-  [key.nav_bar_archive]: "Archive",
   [key.nav_bar_about]: "About",
+  [key.nav_bar_engineering]: "Engineering",
+  [key.nav_bar_blog]: "Blog",
+  // [key.nav_bar_portfolio]: "Portfolio",
+  // [key.nav_bar_archive]: "Archive",
   [key.nav_bar_github]: "GitHub",
   [key.nav_bar_search_placeholder]: "Search",
 

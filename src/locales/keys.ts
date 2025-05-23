@@ -4,8 +4,11 @@ enum I18nKeys {
   copy_right_license = "copy_right_license",
 
   nav_bar_home = "nav_bar_home",
-  nav_bar_archive = "nav_bar_archive",
   nav_bar_about = "nav_bar_about",
+  nav_bar_engineering = "nav_bar_engineering",
+  nav_bar_blog = "nav_bar_blog",
+  // nav_bar_archive = "nav_bar_archive",
+  // nav_bar_portfolio = "nav_bar_portfolio",
   nav_bar_github = "nav_bar_github",
   nav_bar_search_placeholder = "nav_bar_search_placeholder",
 

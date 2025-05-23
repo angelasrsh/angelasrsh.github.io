@@ -1,0 +1,306 @@
+---
+// Component imports
+import Main from "../layouts/MainLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import Pagination from "../components/controllers/Pagination.astro";
+import ChipLayout from "../layouts/ChipLayout.astro";
+import I18nKeys from "../locales/keys";
+import { i18n } from "../locales/translation";
+import { GetCategories } from "../utils/content";
+// Utils
+import type { PaginateFunction } from "astro";
+import { GetSortedPosts } from "../utils/content";
+import { getEntry, render } from "astro:content";
+import CopyRight from "../components/misc/CopyRight.astro";
+import Markdown from "../components/Markdown.astro";
+
+// For a paginated page, we need to export getStaticPaths
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  // Get posts that should be displayed on this page
+  const postCollections = await GetSortedPosts();
+  
+  // Filter for engineering posts if needed
+  // const engineeringPosts = postCollections.filter(post => post.data.category === "engineering");
+  
+  // Return paginated data
+  return paginate(postCollections, { pageSize: 6 });
+}
+
+// Define the page prop type explicitly to ensure it's properly typed
+interface Props {
+  page: {
+    data: any[];
+    url: {
+      prev: string | undefined;
+      next: string | undefined;
+    };
+    currentPage: number;
+    lastPage: number;
+  };
+  title?: string;
+  subTitle?: string;
+  bannerImage?: string;
+  published?: Date;
+  license?: {
+    name: string;
+    url?: string;
+  };
+  author?: string;
+  sourceLink?: string;
+}
+
+// Define default values
+const DEFAULT_TITLE = "Engineering Portfolio";
+const DEFAULT_SUBTITLE = "Showcasing my technical projects and engineering work";
+
+// The page prop will now be properly passed to the component with defaults
+const { 
+  page, 
+  title = DEFAULT_TITLE, 
+  subTitle = DEFAULT_SUBTITLE, 
+  bannerImage,
+  published, 
+  license, 
+  author, 
+  sourceLink 
+} = Astro.props;
+
+const engr = await getEntry("specs", "engineering");
+const { Content } = await render(engr!);
+
+const categories = [...(await GetCategories()).values()].sort();
+const chips = categories.map((category) => {
+  return {
+    name: category.name,
+    slug: category.slug,
+    subChip: category.posts.length.toString(),
+  };
+});
+
+// Sample engineering projects - replace with your actual data source
+// This could come from a collection, API, or data file
+const engineeringProjects = [
+  {
+    id: "project-9",
+    title: "Baseband PAM Transmitter",
+    description: "Pulse shaped Digital Data Trasnmission with Pulse Amplitude Modulation",
+    image: "/images/pam.png",
+    slug: "pam-tx",
+    technologies: ["Signal Processing", "STM32", "PAM"]
+  },
+  {
+    id: "project-1",
+    title: "Steering Encoder PCB",
+    description: "Data Acquisition PCB measuring steering wheel angle with Hall Effect sensor",
+    image: "/images/steeringencoder.png", // Make sure this path exists or use a placeholder
+    slug: "steering-encoder-pcb",
+    technologies: ["STM32", "Kicad", "PCB Design", "LHR", "C"]
+  },
+  {
+    id: "project-2",
+    title: "Circuit Protection PCB",
+    description: "Circuit Protection Method Test PCB using Zener + Fuse + Resistor + BJT methods",
+    image: "/images/circuitprot.png",
+    slug: "circuit-prot-pcb",
+    technologies: ["Kicad", "PCB Design", "LHR"]
+  },
+  {
+    id: "project-3",
+    title: "HV Battery Management System Voltage/Current Sensing",
+    description: "Voltage and Current sense circuit using Hall effect Transducers + firmware",
+    image: "/images/hv-sense.png",
+    slug: "hv-iv-sense",
+    technologies: ["C", "Power Electronics", "PCB Design", "Kicad"]
+  },
+  {
+    id: "project-4",
+    title: "Car Underglow",
+    description: "Underglow for our Electric Car",
+    image: "/images/underglow.png",
+    slug: "underglow",
+    technologies: ["ESP32", "FASTLed", "C++"]
+  },
+  {
+    id: "project-5",
+    title: "C++ Raytracer",
+    description: "Raytracer for my Computer Graphics Honors Class, 3D Rendering",
+    image: "/images/raytracer.jpg",
+    slug: "graphics-raytracer",
+    technologies: ["C++", "Computer Graphics"]
+  },
+  {
+    id: "project-6",
+    title: "Synchronous Serial Port + Wishbone SoC Bus Interface",
+    description: "Verilog SSP with Wishbone SoC interconnect",
+    image: "/images/ssp.png",
+    slug: "verilog-ssp",
+    technologies: ["VLSI", "Verilog", "Testbench"]
+  },
+  {
+    id: "project-7",
+    title: "Handheld Video Game: Overcooked 2",
+    description: "Embedded System Videogame Device + custom Overcooked 2 game software  ",
+    image: "/images/319Game.png",
+    slug: "embedded-project",
+    technologies: ["Eagle", "PCB Design", "C", "Assembly"]
+  },
+  {
+    id: "project-8",
+    title: "FPGA MIPS Processor",
+    description: "Verilog Instruction memory processing and testbenching",
+    image: "/images/waveform.png",
+    slug: "verilog-mips",
+    technologies: ["FPGA", "Testbench", "Verilog"]
+  },
+  
+
+];
+---
+
+<Main title="Engineering" subTitle="My Engineering Portfolio" >
+  <div class="space-y-12">
+    {/* Regular blog posts section if available */}
+    {page && page.data && page.data.length > 0 && (
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold mb-8">Latest Engineering Articles</h2>
+        <div class="w-full space-y-4">
+          {
+            page.data.map((entry, index) => (
+              <div
+                class="onload-animation"
+                style={`animation-delay: calc(var(--onload-animation-delay) + ${index + 1} * var(--onload-animation-interval));`}
+              >
+                <PostCard
+                  id={entry.id}
+                  title={entry.data.title}
+                  published={entry.data.published}
+                  category={entry.data.category}
+                  tags={entry.data.tags}
+                  description={entry.data.description}
+                  image={entry.data.cover}
+                  readingMetadata={
+                    entry.rendered && entry.rendered.metadata 
+                      ? (entry.rendered.metadata as any).frontmatter?.readingMetadata 
+                      : undefined
+                  }
+                />
+              </div>
+            ))
+          }
+        </div>
+        
+        <Pagination
+          class="onload-animation"
+          lastPage={page.lastPage}
+          current={page.currentPage}
+          prevURL={page.url.prev}
+          nextURL={page.url.next}
+          style={`animation-delay: calc(var(--onload-animation-delay) + ${page.data.length + 1} * var(--onload-animation-interval));`}
+        />
+      </div>
+    )}
+      <div>
+          <h2 class="projects-title">My Projects</h2>
+      </div>
+    {/* Project grid showcase */}
+    <div class="project-section">
+      <div class="project-grid">
+        {engineeringProjects.map((project, index) => (
+          <a 
+            href={`/projects/${project.slug}`} 
+            class="project-card onload-animation"
+            style={`animation-delay: calc(var(--onload-animation-delay) + ${index + 1} * var(--onload-animation-interval));`}
+          >
+            <div class="project-image-container">
+              <img src={project.image} alt={project.title} class="project-image" />
+              <div class="project-overlay">
+                <div class="technology-tags">
+                  {project.technologies.map((tech) => (
+                    <span class="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">{project.title}</h3>
+              <p class="project-description">{project.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+    
+    
+</Main>
+
+<style>
+  .projects-title {
+    @apply text-4xl dark:text-white font-bold mb-8; 
+  }
+  .article-wrapper {
+    @apply w-full rounded-2xl bg-[var(--card-color)] p-10;
+  }
+  .article {
+    @apply flex flex-col;
+  }
+  
+  /* Project Grid Styles */
+  .project-section {
+    @apply my-12;
+  }
+  
+  .project-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .project-card {
+    @apply bg-[var(--card-color)] rounded-xl overflow-hidden flex flex-col h-full 
+           transition-all duration-300 hover:translate-y-[-8px] hover:shadow-lg 
+           cursor-pointer border-2 border-transparent hover:border-[var(--accent-color)];
+  }
+  
+  .project-image-container {
+    @apply relative overflow-hidden h-48;
+  }
+  
+  .project-image {
+    @apply w-full h-full object-cover transition-transform duration-500 ease-in-out;
+  }
+  
+  .project-card:hover .project-image {
+    @apply transform scale-110;
+  }
+  
+  .project-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-60 opacity-0 transition-opacity 
+           duration-300 flex items-end justify-start p-4;
+  }
+  
+  .project-card:hover .project-overlay {
+    @apply opacity-100;
+  }
+  
+  .technology-tags {
+    @apply flex flex-wrap gap-2;
+  }
+  
+  .tech-tag {
+    @apply text-xs bg-[var(--accent-color)] text-white px-2 py-1 rounded-full;
+  }
+  
+  .project-info {
+    @apply p-5 flex-grow flex flex-col dark:text-white;
+  }
+  
+  .project-title {
+      @apply text-lg font-bold mb-2 text-gray-900 dark:text-white;
+  }
+  
+  .project-description {
+    @apply text-sm text-gray-500 dark:text-gray-300;
+  }
+</style>
