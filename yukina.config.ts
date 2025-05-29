@@ -44,21 +44,21 @@ const YukinaConfig: Configuration = {
     },
   ],
 
-  username: "WhitePaper 白芷",
-  sign: "Ad Astra Per Aspera.",
-  avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
+  username: "Angela Suresh",
+  sign: "Never Stop Learning, There's Always a Form You Don't Know",
+  avatarUrl: "https://i.pinimg.com/736x/66/66/70/66667074afde63636a82d302cf805f15.jpg",
   socialLinks: [
     {
       icon: "line-md:github-loop",
-      link: "https://github.com/WhitePaper233",
+      link: "https://github.com/angelasrsh",
     },
     {
-      icon: "mingcute:bilibili-line",
-      link: "https://space.bilibili.com/22433608",
+      icon: "mingcute:youtube-line",
+      link: "https://www.youtube.com/@angelasrsh",
     },
     {
-      icon: "mingcute:netease-music-line",
-      link: "https://music.163.com/#/user/home?id=125291648",
+      icon: "mingcute:spotify-line",
+      link: "https://open.spotify.com/user/angelasuresh?si=ab18e199f4434010",
     },
   ],
   maxSidebarCategoryChip: 6, // It is recommended to set it to a common multiple of 2 and 3
@@ -67,15 +67,23 @@ const YukinaConfig: Configuration = {
   maxFooterTagChip: 24,
 
   banners: [
-    "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
-    "https://s2.loli.net/2025/01/25/6bKcwHZigzlM4mJ.webp",
-    "https://s2.loli.net/2025/01/25/H9WgEK6qNTcpFiS.webp",
-    "https://s2.loli.net/2025/01/25/njNVtuUMzxs81RI.webp",
-    "https://s2.loli.net/2025/01/25/tozsJ8QHAjFN3Mm.webp",
-    "https://s2.loli.net/2025/01/25/Pm89OveZq7NWUxF.webp",
-    "https://s2.loli.net/2025/01/25/UCYKvc1ZhgPHB9m.webp",
-    "https://s2.loli.net/2025/01/25/JjpLOW8VSmufzlA.webp",
+    "../images/banners/tower.jpg",
+    "../images/banners/trailofLights.jpg",
+    "../images/banners/angelaiquecomp.JPG",
+    "../images/banners/Angelique.jpg",
+    "../images/banners/ladyluck1.JPG",
+    "../images/banners/newzealand.jpg"
   ],
+  // banners: [
+  //   "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
+  //   "https://s2.loli.net/2025/01/25/6bKcwHZigzlM4mJ.webp",
+  //   "https://s2.loli.net/2025/01/25/H9WgEK6qNTcpFiS.webp",
+  //   "https://s2.loli.net/2025/01/25/njNVtuUMzxs81RI.webp",
+  //   "https://s2.loli.net/2025/01/25/tozsJ8QHAjFN3Mm.webp",
+  //   "https://s2.loli.net/2025/01/25/Pm89OveZq7NWUxF.webp",
+  //   "https://s2.loli.net/2025/01/25/UCYKvc1ZhgPHB9m.webp",
+  //   "https://s2.loli.net/2025/01/25/JjpLOW8VSmufzlA.webp",
+  // ],
 
   slugMode: "HASH", // 'RAW' | 'HASH'
 
