@@ -20,9 +20,10 @@ const { page } = Astro.props;
 ---
 
 <Main>
-  <!-- <div class="space-y-8">
+  
+  <div class="space-y-8">
     <div class="w-full space-y-4">
-      {
+      <!-- {
         page.data.map((entry, index) => (
           <div
             class="onload-animation"
@@ -42,15 +43,15 @@ const { page } = Astro.props;
             />
           </div>
         ))
-      }
+      } -->
     </div>
-    <Pagination
+    <!-- <Pagination
       class="onload-animation"
       lastPage={page.lastPage}
       current={page.currentPage}
       prevURL={page.url.prev}
       nextURL={page.url.next}
       style={`animation-delay: calc(var(--onload-animation-delay) + ${page.data.length + 1} * var(--onload-animation-interval));`}
-    />
-  </div> -->
+    /> -->
+  </div>
 </Main>
