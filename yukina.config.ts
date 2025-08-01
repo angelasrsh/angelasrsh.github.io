@@ -67,12 +67,12 @@ const YukinaConfig: Configuration = {
   maxFooterTagChip: 24,
 
   banners: [
-    "/public/images/banners/tower.jpg",
-    "/public/images/banners/trailofLights.jpg",
-    "/public/images/banners/angelaiquecomp.JPG",
-    "/public/images/banners/Angelique.jpg",
-    "/public/images/banners/ladyluck1.JPG",
-    "/public/images/banners/newzealand.jpg"
+    "/images/banners/tower.jpg",
+    "/images/banners/trailofLights.jpg",
+    "/images/banners/angelaiquecomp.JPG",
+    "/images/banners/Angelique.jpg",
+    "/images/banners/ladyluck1.JPG",
+    "/images/banners/newzealand.jpg"
   ],
   // banners: [
   //   "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
