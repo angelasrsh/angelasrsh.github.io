@@ -7,7 +7,7 @@ category: Life
 licenseName: "Unlicensed"
 author: angelasrsh
 sourceLink: "https://github.com/angelasrsh/austin"
-draft: true
+draft: False
 ---
 # Where to Take Your Friends in Austin
 Recently my friends from Dallas drove down one long weekend to tour and “experience” Austin. As a student living downtown already, I was already tasked as one of the itinerary planners to see all the best Austin food and local scenic spots. However, not surprisingly for me, I was just as clueless on what to do in Austin, even though I have been living here for 3 school years. 
