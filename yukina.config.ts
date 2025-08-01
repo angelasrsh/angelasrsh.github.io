@@ -8,7 +8,7 @@ const YukinaConfig: Configuration = {
 
   description: "Welcome to my personal website. Theme Created by WhitePaper. Edited with Astro",
 
-  site: "https://angelasrsh.github.io/", // Your website URL, used for sitemap and RSS feed
+  site: "https://angelasrsh.github.io", // Your website URL, used for sitemap and RSS feed
 
   locale: "en", // set for website language and date format
 
