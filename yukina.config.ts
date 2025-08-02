@@ -39,8 +39,8 @@ const YukinaConfig: Configuration = {
     // },
 
     {
-      nameKey: I18nKeys.nav_bar_github,
-      href: "https://github.com/angelasrsh",
+      nameKey: I18nKeys.nav_bar_resume,
+      href: "/src/contents/pdfs/resume2526.pdf",
     },
   ],
 
