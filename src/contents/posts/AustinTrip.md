@@ -1,7 +1,7 @@
 ---
-title: Where to Take Your Out of Town Friends in Austin
+title: Places to Visit in Austin
 published: 2025-05-25
-description: Stuff to do in Austin
+description: Suggestions about what to do in a weekend in downtown Austin.
 tags: [Austin, Lifestyle]
 category: Life
 licenseName: "Unlicensed"
@@ -9,7 +9,7 @@ author: angelasrsh
 sourceLink: "https://github.com/angelasrsh/austin"
 draft: False
 ---
-# Where to Take Your Friends in Austin
+# Places to Visit in Austin
 Recently my friends from Dallas drove down one long weekend to tour and “experience” Austin. As a student living downtown already, I was already tasked as one of the itinerary planners to see all the best Austin food and local scenic spots. However, not surprisingly for me, I was just as clueless on what to do in Austin, even though I have been living here for 3 school years. 
 
 Luckily, the google search results on what to do in Austin doesn’t actually mislead you, they in fact have a few good options. These included the obvious Austin public library, Zilker Park, and Mt. Bonnel trips. From there we also included a UT campus building tour and then we played it by ear. 
