@@ -40,7 +40,7 @@ const YukinaConfig: Configuration = {
 
     {
       nameKey: I18nKeys.nav_bar_resume,
-      href: "/src/contents/pdfs/resume2526.pdf",
+      href: "../src/contents/pdfs/resume2526.pdf",
     },
   ],
 
