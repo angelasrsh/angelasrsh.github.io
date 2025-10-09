@@ -46,7 +46,7 @@ const YukinaConfig: Configuration = {
 
   username: "Angela Suresh",
   sign: "Never Stop Learning, There's Always a Form You Don't Know",
-  avatarUrl: "https://i.pinimg.com/736x/66/66/70/66667074afde63636a82d302cf805f15.jpg",
+  avatarUrl: "https://drive.google.com/file/d/1PxuNpJSBJ66KYWZezJOzXdKTl942DH1c/view?usp=sharing",
   socialLinks: [
     {
       icon: "line-md:github-loop",
