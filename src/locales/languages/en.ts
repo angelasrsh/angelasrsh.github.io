@@ -13,6 +13,7 @@ export const en: Translation = {
   // [key.nav_bar_portfolio]: "Portfolio",
   // [key.nav_bar_archive]: "Archive",
   [key.nav_bar_github]: "GitHub",
+  [key.nav_bar_resume]: "Resume",
   [key.nav_bar_search_placeholder]: "Search",
 
   [key.post_card_words]: "Words",

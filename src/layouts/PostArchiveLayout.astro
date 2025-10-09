@@ -17,7 +17,7 @@ export interface Props {
 const { archiveMap, title, subTitle, bannerImage, slug } = Astro.props;
 ---
 
-<Main title={title} subTitle={subTitle} bannerImage={bannerImage} slug={slug}>
+<Main title={"Blog Archives"} subTitle={"Explore my blog posts"} bannerImage={bannerImage} slug={slug}>
   <div class="archives">
     {
       archiveMap.size !== 0 &&
