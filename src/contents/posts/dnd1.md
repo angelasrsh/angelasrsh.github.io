@@ -7,7 +7,7 @@ banner-image: "../../images/posts/austin-trip1/aplview.jpg"
 category: Life
 licenseName: "Unlicensed"
 author: angelasrsh
-draft: false
+draft: true
 ---
 # Characters
 # Tif
