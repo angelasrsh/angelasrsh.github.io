@@ -54,4 +54,5 @@ export default defineConfig({
       ],
     ],
   },
+  avatarUrl: "/images/avatar.png"
 });
