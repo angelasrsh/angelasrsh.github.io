@@ -3,10 +3,11 @@ import type { Configuration } from "./src/types/config";
 
 const YukinaConfig: Configuration = {
   title: "Angela Suresh",
-  subTitle: "My Personal Website",
+  subTitle: "Electrical & Computer Engineering",
   brandTitle: "Angela Suresh",
 
-  description: "Welcome to my personal website. Theme Created by WhitePaper. Edited with Astro",
+  description:
+    "Portfolio and writing by Angela Suresh, an Electrical and Computer Engineering student at UT Austin.",
 
   site: "https://angelasrsh.github.io", // Your website URL, used for sitemap and RSS feed
 
@@ -14,39 +15,41 @@ const YukinaConfig: Configuration = {
 
   navigators: [
     {
-      nameKey: I18nKeys.nav_bar_home,
-      href: "/",
-    },
-    {
       nameKey: I18nKeys.nav_bar_about,
       href: "/about",
-    },
-    {
-      nameKey: I18nKeys.nav_bar_engineering,
-      href: "/engineering",
     },
     {
       nameKey: I18nKeys.nav_bar_blog,
       href: "/blog",
     },
-    // {
-    //   nameKey: I18nKeys.nav_bar_archive,
-    //   href: "/archive",
-    // },
-    // {
-    //   nameKey: I18nKeys.nav_bar_portfolio,
-    //   href: "/portfolio",
-    // },
-
     {
-      nameKey: I18nKeys.nav_bar_resume,
-      href: "../src/contents/pdfs/resume2526.pdf",
+      nameKey: I18nKeys.nav_bar_projects,
+      href: "/projects",
+    },
+    {
+      nameKey: I18nKeys.nav_bar_contact,
+      href: "/contact",
     },
   ],
 
   username: "Angela Suresh",
-  sign: "Never Stop Learning, There's Always a Form You Don't Know",
+  heroEyebrow: "MS ECE @ CU Boulder | BS ECE @ UT Austin ",
+  sign: "Electrical and Computer Engineering student focused on power electronics and systems design. Hardware, firmware, and creativity",
   avatarUrl: "/images/avatar.png",
+
+  // Optional full-bleed image or video behind the hero. Drop the file under
+  // public/ and point src at it, e.g. public/images/hero-bg.jpg -> "/images/hero-bg.jpg".
+  // Hero text switches to a light palette automatically once this is set.
+  // heroBackground: {
+  //   type: "image",
+  //   src: "/images/banners/tower.jpg",
+  // },
+  heroBackground: {
+    type: "video",
+    src: "https://www.youtube.com/watch?v=cURXU87JRZs&list=RDcURXU87JRZs&start_radio=1",
+    poster: "/images/hero-bg-poster.jpg",
+  },
+
   socialLinks: [
     {
       icon: "line-md:github-loop",
@@ -56,34 +59,27 @@ const YukinaConfig: Configuration = {
       icon: "mingcute:youtube-line",
       link: "https://www.youtube.com/@angelasrsh",
     },
-    {
-      icon: "mingcute:spotify-line",
-      link: "https://open.spotify.com/user/angelasuresh?si=ab18e199f4434010",
-    },
   ],
+
+  contact: {
+    email: "angelasrsh@gmail.com",
+    linkedin: "https://www.linkedin.com/in/angela-suresh/",
+  },
+
   maxSidebarCategoryChip: 6, // It is recommended to set it to a common multiple of 2 and 3
   maxSidebarTagChip: 12,
   maxFooterCategoryChip: 6,
   maxFooterTagChip: 24,
 
+  // Only used as a fallback cover for entries without one.
   banners: [
     "/images/banners/tower.jpg",
     "/images/banners/trailofLights.jpg",
     "/images/banners/angelaiquecomp.JPG",
     "/images/banners/Angelique.jpg",
     "/images/banners/ladyluck1.JPG",
-    "/images/banners/newzealand.jpg"
+    "/images/banners/newzealand.jpg",
   ],
-  // banners: [
-  //   "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
-  //   "https://s2.loli.net/2025/01/25/6bKcwHZigzlM4mJ.webp",
-  //   "https://s2.loli.net/2025/01/25/H9WgEK6qNTcpFiS.webp",
-  //   "https://s2.loli.net/2025/01/25/njNVtuUMzxs81RI.webp",
-  //   "https://s2.loli.net/2025/01/25/tozsJ8QHAjFN3Mm.webp",
-  //   "https://s2.loli.net/2025/01/25/Pm89OveZq7NWUxF.webp",
-  //   "https://s2.loli.net/2025/01/25/UCYKvc1ZhgPHB9m.webp",
-  //   "https://s2.loli.net/2025/01/25/JjpLOW8VSmufzlA.webp",
-  // ],
 
   slugMode: "HASH", // 'RAW' | 'HASH'
 
@@ -92,8 +88,7 @@ const YukinaConfig: Configuration = {
     url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   },
 
-  // WIP functions
-  bannerStyle: "LOOP", // 'loop' | 'static' | 'hidden'
+  bannerStyle: "LOOP",
 };
 
 export default YukinaConfig;

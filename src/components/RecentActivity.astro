@@ -1,0 +1,136 @@
+---
+import { IdToSlug } from "../utils/hash";
+import { formatDate } from "../utils/date";
+import YukinaConfig from "../../yukina.config";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  project?: CollectionEntry<"projects">;
+  post?: CollectionEntry<"posts">;
+}
+
+const { project, post } = Astro.props;
+---
+
+<section class="activity">
+  <p class="eyebrow">Recent activity</p>
+
+  <div class="activity-grid">
+    <div class="activity-col">
+      {
+        project && (
+          <a href={`/projects/${project.id}`} class="activity-link">
+            <p class="activity-label">Latest project</p>
+            <h3 class="activity-title font-display">{project.data.title}</h3>
+            {project.data.description && (
+              <p class="activity-desc">{project.data.description}</p>
+            )}
+            <div class="activity-meta">
+              <span>{formatDate(project.data.published, YukinaConfig.locale)}</span>
+              {project.data.technologies?.[0] && (
+                <>
+                  <span class="dot">·</span>
+                  <span>{project.data.technologies[0]}</span>
+                </>
+              )}
+            </div>
+            <span class="activity-cta">View project →</span>
+          </a>
+        )
+      }
+    </div>
+
+    <div class="activity-col">
+      {
+        post && (
+          <a href={`/posts/${IdToSlug(post.id)}`} class="activity-link">
+            <p class="activity-label">Latest writing</p>
+            <h3 class="activity-title font-display">{post.data.title}</h3>
+            {post.data.description && (
+              <p class="activity-desc">{post.data.description}</p>
+            )}
+            <div class="activity-meta">
+              <span>{formatDate(post.data.published, YukinaConfig.locale)}</span>
+              {post.data.category && (
+                <>
+                  <span class="dot">·</span>
+                  <span>{post.data.category}</span>
+                </>
+              )}
+            </div>
+            <span class="activity-cta">Read post →</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .activity {
+    /* The page container no longer adds top padding on the home page (the
+       hero handles clearing the nav itself), so give this section its own
+       breathing room below the hero. */
+    @apply pt-12 lg:pt-16;
+  }
+
+  .activity-grid {
+    @apply mt-6 grid grid-cols-1 md:grid-cols-2;
+  }
+
+  .activity-col {
+    @apply py-8 first:pt-0 md:py-0;
+  }
+
+  .activity-col:first-child {
+    @apply md:pr-12;
+  }
+
+  .activity-col:last-child {
+    @apply md:pl-12;
+  }
+
+  /* Vertical rule on desktop, horizontal rule when the columns stack. */
+  .activity-col + .activity-col {
+    border-top: 1px solid var(--border-color);
+  }
+
+  @media (min-width: 768px) {
+    .activity-col + .activity-col {
+      border-top: none;
+      border-left: 1px solid var(--border-color);
+    }
+  }
+
+  .activity-link {
+    @apply flex flex-col;
+  }
+
+  .activity-label {
+    @apply text-xs uppercase tracking-widest text-[var(--text-color-lighten)];
+  }
+
+  .activity-title {
+    @apply mt-3 text-2xl leading-snug text-[var(--text-color)] transition-colors lg:text-3xl;
+  }
+
+  .activity-link:hover .activity-title {
+    color: var(--primary-color);
+  }
+
+  .activity-desc {
+    @apply mt-3 line-clamp-3 text-sm leading-relaxed text-[var(--text-color-lighten)];
+  }
+
+  .activity-meta {
+    @apply mt-4 flex flex-row items-center gap-1.5 text-xs text-[var(--text-color-lighten)];
+  }
+
+  .dot {
+    @apply opacity-60;
+  }
+
+  .activity-cta {
+    @apply mt-5 text-sm text-[var(--primary-color)];
+  }
+</style>

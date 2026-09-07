@@ -1,62 +1,82 @@
 ---
 import Base from "./BaseLayout.astro";
 import NavBar from "../components/NavBar.astro";
-import Banner from "../components/Banner.astro";
-
-import YukinaConfig from "../../yukina.config";
 import Footer from "../components/Footer.astro";
-import SideBar from "../components/SideBar.astro";
 
 export interface Props {
   title?: string;
   subTitle?: string;
-  bannerImage?: string;
-  slug?: string;
+  /** Renders a serif page heading above the content. Omit on the home page. */
+  showHeader?: boolean;
+  /** Use the full page width (project grids) instead of the reading measure. */
+  wide?: boolean;
 }
 
-const props = Astro.props;
+const { title, subTitle, showHeader = true, wide = false } = Astro.props;
+
+// A "hero" slot renders full-width, outside the padded/max-width container,
+// so its content (e.g. a background image or video) can bleed edge-to-edge.
+// When present, the container's own nav-clearing top padding is dropped,
+// since the hero section handles clearing the fixed nav itself.
+const hasHero = Astro.slots.has("hero");
 ---
 
 <Base>
   <NavBar />
+  <!-- Always rendered (even empty) so swup has a stable container to swap
+       between pages that do and don't use the hero slot. -->
+  <div id="hero-slot">
+    <slot name="hero" />
+  </div>
 
-  {
-    YukinaConfig.bannerStyle == "LOOP" && (
-      <Banner
-        title={props.title}
-        subTitle={props.subTitle}
-        bannerImage={props.bannerImage}
-        slug={props.slug}
-      />
-    )
-  }
-
-  <div class="main-container my-10">
-    <div class="flex flex-row items-start xl:space-x-4">
-      <div class="side-bar">
-        <SideBar />
-      </div>
-      <div class="transition-leaving w-full space-y-8">
-        <main class="content onload-animation">
-          <slot />
-        </main>
-        <Footer />
-      </div>
-    </div>
+  <div
+    class:list={[
+      "page-container",
+      wide ? "is-wide" : "is-narrow",
+      hasHero && "no-top-pad",
+    ]}
+  >
+    <main class="content">
+      {
+        showHeader && title && (
+          <header class="page-header onload-animation">
+            <h1 class="page-title font-display">{title}</h1>
+            {subTitle && <p class="page-subtitle">{subTitle}</p>}
+          </header>
+        )
+      }
+      <slot />
+    </main>
+    <Footer />
   </div>
 </Base>
 
 <style>
-  .main-container {
-    @apply w-full md:min-w-[80%] md:max-w-[80%] lg:min-w-[var(--page-width-lg)] lg:max-w-[var(--page-width-lg)] xl:min-w-[var(--page-width-xl)] xl:max-w-[var(--page-width-xl)];
-    @apply md:mx-auto;
+  .page-container {
+    @apply mx-auto w-full px-6 pb-24 pt-28 lg:px-8 lg:pt-36;
   }
 
-  .side-bar {
-    @apply hidden min-w-[248px] xl:block;
+  .page-container.no-top-pad {
+    padding-top: 0;
   }
 
-  .content {
-    @apply xl:w-[calc(var(--page-width-xl)-264px)];
+  .is-narrow {
+    max-width: var(--page-width-lg);
+  }
+
+  .is-wide {
+    max-width: var(--page-width-xl);
+  }
+
+  .page-header {
+    @apply mb-12 lg:mb-16;
+  }
+
+  .page-title {
+    @apply text-5xl leading-[1.05] text-[var(--text-color)] lg:text-6xl;
+  }
+
+  .page-subtitle {
+    @apply mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-color-lighten)];
   }
 </style>

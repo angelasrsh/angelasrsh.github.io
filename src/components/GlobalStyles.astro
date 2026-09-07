@@ -8,49 +8,98 @@ import "overlayscrollbars/overlayscrollbars.css";
 
 <style is:global>
   :root {
-    --hue: 300;
+    /* Ube purple. Everything else is derived from this hue. */
+    --hue: 302;
 
-    --primary-color: oklch(70% 0.15 var(--hue));
-    --primary-color-lighten: oklch(95% 0.02 var(--hue));
-    --primary-color-hover: oklch(90% 0.025 var(--hue));
-    --primary-color-transparent: oklch(70% 0.15 var(--hue) / 15%);
-    --text-color: oklch(30% 0 0);
-    --text-color-lighten: oklch(50% 0 0);
+    --primary-color: oklch(52% 0.11 var(--hue));
+    --primary-color-lighten: oklch(95.5% 0.02 var(--hue));
+    --primary-color-hover: oklch(96.5% 0.014 var(--hue));
+    --primary-color-transparent: oklch(52% 0.11 var(--hue) / 10%);
+
+    --text-color: oklch(22% 0.008 var(--hue));
+    --text-color-lighten: oklch(52% 0.012 var(--hue));
+
     --card-color: oklch(100% 0 0);
-    --card-color-transparent: oklch(100% 0 0 / 85%);
-    --background-color: oklch(97% 0.01 var(--hue));
+    --card-color-lighten: oklch(98% 0.005 var(--hue));
+    --card-color-transparent: oklch(100% 0 0 / 80%);
+    --background-color: oklch(99% 0.004 var(--hue));
 
-    --brand-font: "Raleway", "Noto Sans SC", sans-serif;
-    --primary-font: "Noto Sans SC", sans-serif;
-    --code-font: "JetBrains Mono", "Fira Code", monospace;
+    --border-color: oklch(91% 0.008 var(--hue));
+    --border-color-strong: oklch(82% 0.014 var(--hue));
 
-    --page-width-lg: 992px;
-    --page-width-xl: 1264px;
+    --brand-font: "Bodoni Moda", "Didot", "Iowan Old Style", Georgia, serif;
+    --serif-font: var(--brand-font);
+    --primary-font:
+      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --code-font: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
-    --banner-height: 55vh;
+    /* Narrower measure than the stock theme - minimal layouts read better tight. */
+    --page-width-lg: 880px;
+    --page-width-xl: 1100px;
+
     --title-font: var(--brand-font);
-    --title-color: oklch(100% 0 0 / 95%);
-    --subtitle-font: var(--brand-font);
-    --subtitle-color: oklch(100% 0 0 / 85%);
+    --title-color: var(--text-color);
+    --subtitle-font: var(--primary-font);
+    --subtitle-color: var(--text-color-lighten);
 
-    --onload-animation-delay: 100ms;
-    --onload-animation-interval: 100ms;
+    --onload-animation-delay: 60ms;
+    --onload-animation-interval: 70ms;
   }
 
   :root.dark {
-    --primary-color: oklch(70% 0.125 var(--hue));
-    --primary-color-lighten: oklch(40% 0.04 var(--hue));
-    --primary-color-hover: oklch(20% 0.015 var(--hue));
-    --text-color: oklch(95% 0.002 var(--hue));
-    --text-color-lighten: oklch(90% 0.002 var(--hue));
-    --card-color: oklch(25% 0.02 var(--hue));
-    --card-color-lighten: oklch(40% 0.04 var(--hue));
-    --card-color-transparent: oklch(30% 0.025 var(--hue) / 85%);
-    --background-color: oklch(17.5% 0.015 var(--hue));
+    --primary-color: oklch(80% 0.105 var(--hue));
+    --primary-color-lighten: oklch(32% 0.045 var(--hue));
+    --primary-color-hover: oklch(26% 0.03 var(--hue));
+    --primary-color-transparent: oklch(80% 0.105 var(--hue) / 14%);
+
+    --text-color: oklch(94% 0.005 var(--hue));
+    --text-color-lighten: oklch(70% 0.012 var(--hue));
+
+    --card-color: oklch(20% 0.014 var(--hue));
+    --card-color-lighten: oklch(24% 0.018 var(--hue));
+    --card-color-transparent: oklch(20% 0.014 var(--hue) / 80%);
+    --background-color: oklch(16% 0.012 var(--hue));
+
+    --border-color: oklch(30% 0.016 var(--hue));
+    --border-color-strong: oklch(40% 0.022 var(--hue));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--primary-font);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--primary-color-lighten);
+    color: var(--primary-color);
   }
 
   .swup-progress-bar {
-    height: 5px;
+    height: 2px;
     background-color: var(--primary-color);
+  }
+
+  /* Shared type scale for the serif display face. Bodoni Moda's contrast
+     reads thin at 400, so lean on 500 for headings and the brand name. */
+  .font-display {
+    font-family: var(--brand-font);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  /* Small uppercase label used above each home-page section. */
+  .eyebrow {
+    font-family: var(--primary-font);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-color-lighten);
   }
 </style>

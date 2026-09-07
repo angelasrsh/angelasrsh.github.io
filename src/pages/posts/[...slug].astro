@@ -1,8 +1,8 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { IdToSlug } from "../../utils/hash";
-import PostLayout from "../../layouts/PostLayout.astro";
-import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { GetSortedPosts } from "../../utils/content";
 
 export async function getStaticPaths() {
   const postEntries = await getCollection("posts");
@@ -14,53 +14,46 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+// Newest-first ordering, so "previous" is the next-newer post.
+const all = await GetSortedPosts();
+const idx = all.findIndex((p) => p.id === entry.id);
+const prev = idx > 0 ? all[idx - 1] : undefined;
+const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : undefined;
+
+const readingMetadata = (entry.rendered?.metadata as any)?.frontmatter
+  ?.readingMetadata;
 ---
 
-{
-  !entry.data.licenseName && (
-    <PostLayout
-      title={entry.data.title}
-      subTitle={entry.data.description}
-      bannerImage={entry.data.cover}
-      published={entry.data.published}
-    >
-      <div
-        class="hidden"
-        data-pagefind-body
-        data-pagefind-weight="10"
-        data-pagefind-meta="title"
-      >
-        {entry.data.title}
-      </div>
-      <div data-pagefind-body>
-        <Content />
-      </div>
-    </PostLayout>
-  )
-}
-{
-  entry.data.licenseName && (
-    <PostLayout
-      title={entry.data.title}
-      subTitle={entry.data.description}
-      bannerImage={entry.data.cover}
-      published={entry.data.published}
-      license={{ name: entry.data.licenseName, url: entry.data.licenseUrl }}
-      author={entry.data.author}
-      sourceLink={entry.data.sourceLink}
-    >
-      <div
-        class="hidden"
-        data-pagefind-body
-        data-pagefind-weight="10"
-        data-pagefind-meta="title"
-      >
-        {entry.data.title}
-      </div>
-      <div data-pagefind-body>
-        <Content />
-      </div>
-    </PostLayout>
-  )
-}
-<!-- <Fragment set:html={tocHTMLString} /> -->
+<ArticleLayout
+  title={entry.data.title}
+  subTitle={entry.data.description}
+  cover={entry.data.cover}
+  published={entry.data.published}
+  category={entry.data.category}
+  tags={entry.data.tags}
+  readingMetadata={readingMetadata}
+  license={entry.data.licenseName
+    ? { name: entry.data.licenseName, url: entry.data.licenseUrl }
+    : undefined}
+  author={entry.data.author}
+  sourceLink={entry.data.sourceLink}
+  backHref="/blog"
+  backLabel="All posts"
+  prevHref={prev ? `/posts/${IdToSlug(prev.id)}` : undefined}
+  prevTitle={prev?.data.title}
+  nextHref={next ? `/posts/${IdToSlug(next.id)}` : undefined}
+  nextTitle={next?.data.title}
+>
+  <div
+    class="hidden"
+    data-pagefind-body
+    data-pagefind-weight="10"
+    data-pagefind-meta="title"
+  >
+    {entry.data.title}
+  </div>
+  <div data-pagefind-body>
+    <Content />
+  </div>
+</ArticleLayout>

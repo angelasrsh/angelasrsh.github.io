@@ -1,0 +1,96 @@
+---
+export interface Props {
+  /** Collection entry id, used as the URL slug. */
+  id: string;
+  title: string;
+  description?: string;
+  cover?: string;
+  technologies?: string[];
+}
+
+const { id, title, description, cover, technologies } = Astro.props;
+const url = `/projects/${id}`;
+---
+
+<a href={url} class="card">
+  <div class="thumb">
+    {
+      cover ? (
+        <img class="thumb-img lozad" data-src={cover} alt={title} />
+      ) : (
+        <div class="thumb-empty" />
+      )
+    }
+  </div>
+  <div class="body">
+    <h3 class="title font-display">{title}</h3>
+    {description && <p class="desc">{description}</p>}
+    {
+      technologies && technologies.length > 0 && (
+        <ul class="tags">
+          {technologies.slice(0, 4).map((tech) => (
+            <li class="tag">{tech}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</a>
+
+<style>
+  .card {
+    @apply flex flex-col transition-all duration-300;
+  }
+
+  .thumb {
+    @apply relative w-full overflow-hidden rounded-lg;
+    aspect-ratio: 4 / 3;
+    background-color: var(--card-color-lighten);
+    border: 1px solid var(--border-color);
+  }
+
+  .thumb-img {
+    @apply h-full w-full object-cover transition-transform duration-500 ease-out;
+  }
+
+  .card:hover .thumb-img {
+    transform: scale(1.04);
+  }
+
+  .thumb-empty {
+    @apply h-full w-full;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color-lighten),
+      var(--card-color-lighten)
+    );
+  }
+
+  .body {
+    @apply flex flex-col pt-4;
+  }
+
+  .title {
+    @apply text-xl leading-snug text-[var(--text-color)] transition-colors;
+  }
+
+  .card:hover .title {
+    color: var(--primary-color);
+  }
+
+  .desc {
+    @apply mt-1.5 line-clamp-2 text-sm leading-relaxed text-[var(--text-color-lighten)];
+  }
+
+  .tags {
+    @apply mt-3 flex flex-row flex-wrap gap-x-2 gap-y-1;
+  }
+
+  .tag {
+    @apply text-xs text-[var(--text-color-lighten)];
+  }
+
+  .tag:not(:last-child)::after {
+    content: " ·";
+  }
+</style>

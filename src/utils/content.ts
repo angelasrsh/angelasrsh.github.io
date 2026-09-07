@@ -61,6 +61,31 @@ export async function GetSortedPosts() {
 }
 
 /**
+ * Retrieves and sorts projects.
+ *
+ * Projects are ordered by their `order` field ascending; entries without an
+ * `order` sort last, falling back to newest-first by published date. Drafts are
+ * excluded in production builds only, so you can preview them with `pnpm dev`.
+ *
+ * @returns A promise that resolves to an array of sorted projects.
+ */
+export async function GetSortedProjects() {
+  const allProjects = await getCollection("projects", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+
+  return allProjects.sort((a, b) => {
+    const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+    const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+    if (orderA !== orderB) return orderA - orderB;
+    return (
+      new Date(b.data.published).getTime() -
+      new Date(a.data.published).getTime()
+    );
+  });
+}
+
+/**
  * Retrieves and organizes blog post archives.
  *
  * This function fetches all blog posts from the "posts" collection, filters them based on the environment

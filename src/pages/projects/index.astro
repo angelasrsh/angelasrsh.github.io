@@ -1,0 +1,43 @@
+---
+import Main from "../../layouts/MainLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { GetSortedProjects } from "../../utils/content";
+
+const projects = await GetSortedProjects();
+---
+
+<Main
+  title="Projects"
+  subTitle="Hardware, firmware, and the occasional renderer. A selection of things I've designed, built, and debugged."
+  wide={true}
+>
+  <div class="project-grid">
+    {
+      projects.map((project, index) => (
+        <div
+          class="onload-animation"
+          style={`animation-delay: calc(var(--onload-animation-delay) + ${index} * var(--onload-animation-interval));`}
+        >
+          <ProjectCard
+            id={project.id}
+            title={project.data.title}
+            description={project.data.description}
+            cover={project.data.cover}
+            technologies={project.data.technologies}
+          />
+        </div>
+      ))
+    }
+  </div>
+  {projects.length === 0 && <p class="empty">No projects yet.</p>}
+</Main>
+
+<style>
+  .project-grid {
+    @apply grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .empty {
+    @apply text-[var(--text-color-lighten)];
+  }
+</style>

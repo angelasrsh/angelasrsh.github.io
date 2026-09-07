@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { GetSortedProjects } from "../../utils/content";
+
+export async function getStaticPaths() {
+  // Readable slugs for projects: the filename is the URL.
+  const projects = await getCollection("projects");
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Previous / next within the same ordering used by the grid.
+const all = await GetSortedProjects();
+const idx = all.findIndex((p) => p.id === entry.id);
+const prev = idx > 0 ? all[idx - 1] : undefined;
+const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : undefined;
+---
+
+<ArticleLayout
+  title={entry.data.title}
+  subTitle={entry.data.description}
+  cover={entry.data.cover}
+  published={entry.data.published}
+  technologies={entry.data.technologies}
+  repoLink={entry.data.repoLink}
+  demoLink={entry.data.demoLink}
+  gallery={entry.data.gallery}
+  backHref="/projects"
+  backLabel="All projects"
+  prevHref={prev ? `/projects/${prev.id}` : undefined}
+  prevTitle={prev?.data.title}
+  nextHref={next ? `/projects/${next.id}` : undefined}
+  nextTitle={next?.data.title}
+>
+  <div
+    class="hidden"
+    data-pagefind-body
+    data-pagefind-weight="10"
+    data-pagefind-meta="title"
+  >
+    {entry.data.title}
+  </div>
+  <div data-pagefind-body>
+    <Content />
+  </div>
+</ArticleLayout>

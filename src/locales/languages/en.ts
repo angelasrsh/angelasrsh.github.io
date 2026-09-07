@@ -9,6 +9,8 @@ export const en: Translation = {
   [key.nav_bar_home]: "Home",
   [key.nav_bar_about]: "About",
   [key.nav_bar_engineering]: "Engineering",
+  [key.nav_bar_projects]: "Projects",
+  [key.nav_bar_contact]: "Contact",
   [key.nav_bar_blog]: "Blog",
   // [key.nav_bar_portfolio]: "Portfolio",
   // [key.nav_bar_archive]: "Archive",

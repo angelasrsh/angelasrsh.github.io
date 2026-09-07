@@ -1,0 +1,63 @@
+---
+import { IdToSlug } from "../utils/hash";
+import { formatDate } from "../utils/date";
+import YukinaConfig from "../../yukina.config";
+
+export interface Props {
+  id: string;
+  title: string;
+  published: Date;
+  description?: string;
+  category?: string;
+  readingMetadata?: { time: number; wordCount: number };
+}
+
+const { id, title, published, description, category, readingMetadata } =
+  Astro.props;
+const url = `/posts/${IdToSlug(id)}`;
+---
+
+<a href={url} class="row">
+  <div class="row-main">
+    <h3 class="row-title font-display">{title}</h3>
+    {description && <p class="row-desc">{description}</p>}
+  </div>
+  <div class="row-meta">
+    <span>{formatDate(published, YukinaConfig.locale)}</span>
+    {category && <span class="dot">·</span>}
+    {category && <span>{category}</span>}
+    {readingMetadata && <span class="dot">·</span>}
+    {readingMetadata && <span>{readingMetadata.time} min</span>}
+  </div>
+</a>
+
+<style>
+  .row {
+    @apply flex flex-col gap-2 py-6 transition-all md:flex-row md:items-baseline md:justify-between md:gap-10;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .row-main {
+    @apply flex flex-col;
+  }
+
+  .row-title {
+    @apply text-xl leading-snug text-[var(--text-color)] transition-colors md:text-2xl;
+  }
+
+  .row:hover .row-title {
+    color: var(--primary-color);
+  }
+
+  .row-desc {
+    @apply mt-1.5 max-w-2xl text-sm leading-relaxed text-[var(--text-color-lighten)];
+  }
+
+  .row-meta {
+    @apply flex shrink-0 flex-row items-center gap-1.5 text-xs text-[var(--text-color-lighten)];
+  }
+
+  .dot {
+    @apply opacity-60;
+  }
+</style>

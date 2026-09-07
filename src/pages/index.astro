@@ -1,0 +1,73 @@
+---
+import Main from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro";
+import RecentActivity from "../components/RecentActivity.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { GetSortedPosts, GetSortedProjects } from "../utils/content";
+
+const projects = await GetSortedProjects();
+const posts = await GetSortedPosts();
+const featuredProjects = projects.slice(0, 6);
+---
+
+<Main showHeader={false} wide={true}>
+  <Hero slot="hero" />
+  <RecentActivity project={projects[0]} post={posts[0]} />
+
+  {
+    featuredProjects.length > 0 && (
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title font-display">Projects</h2>
+          <a href="/projects" class="section-link">
+            All projects →
+          </a>
+        </div>
+        <div class="project-grid">
+          {featuredProjects.map((project, index) => (
+            <div
+              class="onload-animation"
+              style={`animation-delay: calc(var(--onload-animation-delay) + ${index} * var(--onload-animation-interval));`}
+            >
+              <ProjectCard
+                id={project.id}
+                title={project.data.title}
+                description={project.data.description}
+                cover={project.data.cover}
+                technologies={project.data.technologies}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Main>
+
+<style>
+  .section {
+    @apply pt-20 lg:pt-28;
+  }
+
+  .section-head {
+    @apply mb-10 flex flex-row items-baseline justify-between;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+  }
+
+  .section-title {
+    @apply text-3xl leading-none text-[var(--text-color)] lg:text-4xl;
+  }
+
+  .section-link {
+    @apply text-sm text-[var(--text-color-lighten)] transition-colors;
+  }
+
+  .section-link:hover {
+    color: var(--primary-color);
+  }
+
+  .project-grid {
+    @apply grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3;
+  }
+</style>

@@ -24,31 +24,85 @@
   flex-direction: row;
   align-items: center;
   position: relative;
+  font-family: var(--brand-font);
+  font-weight: 500;
+  color: var(--text-color) !important;
 }
 
-.article h1::before,
-.article h2::before,
-.article h3::before,
-.article h4::before,
-.article h5::before,
-.article h6::before {
-  position: absolute;
-  display: block;
-  content: " ";
-  background-color: var(--primary-color);
-  top: 2.5px;
-  bottom: 3px;
-  width: 0.3rem;
-  border-radius: 4px;
+.article h1 {
+  font-size: 2.25rem;
+  line-height: 1.15;
 }
 
+.article h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-top: 2.5rem;
+}
+
+.article h3 {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  margin-top: 2rem;
+}
+
+/* Anchor links appear on hover instead of sitting in the margin permanently. */
 .article h1 > a,
 .article h2 > a,
 .article h3 > a,
 .article h4 > a,
 .article h5 > a,
 .article h6 > a {
-  @apply m-2;
+  @apply mr-2;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-decoration: none !important;
+}
+
+.article h1:hover > a,
+.article h2:hover > a,
+.article h3:hover > a,
+.article h4:hover > a,
+.article h5:hover > a,
+.article h6:hover > a {
+  opacity: 0.5;
+}
+
+/* Images in post and project bodies. */
+.article img {
+  @apply my-8 w-full rounded-lg;
+  border: 1px solid var(--border-color);
+  object-fit: cover;
+}
+
+.article figure {
+  @apply my-8;
+}
+
+.article figure img {
+  @apply my-0;
+}
+
+.article figcaption,
+.article img + em {
+  @apply mt-3 block text-center text-sm;
+  color: var(--text-color-lighten);
+}
+
+/* Two images in consecutive paragraphs sit side by side on wide screens. */
+.article .image-row {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+.article .image-row img {
+  @apply my-0;
+}
+
+.article iframe {
+  @apply my-8 w-full rounded-lg;
+  border: 1px solid var(--border-color);
+  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
 .article li::marker {

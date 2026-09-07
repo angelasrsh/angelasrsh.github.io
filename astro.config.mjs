@@ -26,7 +26,7 @@ export default defineConfig({
     icon(),
     swup({
       theme: false,
-      containers: ["main", "footer", ".banner-inner"],
+      containers: ["main", "#hero-slot"],
       smoothScrolling: true,
       progress: true,
       cache: true,
@@ -54,5 +54,4 @@ export default defineConfig({
       ],
     ],
   },
-  avatarUrl: "../images/avatar.png"
 });

@@ -1,0 +1,307 @@
+---
+import { Icon } from "astro-icon/components";
+import YukinaConfig from "../../yukina.config";
+
+const background = YukinaConfig.heroBackground;
+
+// Accepts youtube.com/watch, youtu.be, and youtube.com/embed links.
+function getYouTubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/,
+  );
+  return match ? match[1] : null;
+}
+
+const youTubeId =
+  background?.type === "video" ? getYouTubeId(background.src) : null;
+---
+
+<section class:list={["hero", background && "has-media"]}>
+  {
+    background && (
+      <div class="hero-media-wrap">
+        {background.type === "video" && youTubeId ? (
+          <div class="hero-yt-wrap" data-hero-yt>
+            <div data-hero-yt-player data-video-id={youTubeId} />
+          </div>
+        ) : background.type === "video" ? (
+          <video
+            class="hero-media"
+            src={background.src}
+            poster={background.poster}
+            autoplay
+            muted
+            loop
+            playsinline
+          />
+        ) : (
+          <img class="hero-media" src={background.src} alt="" />
+        )}
+        <div class="hero-scrim" />
+      </div>
+    )
+  }
+
+  <div class="hero-inner">
+    <div class="avatar-wrap onload-animation-fade-in">
+      <img class="avatar" src={YukinaConfig.avatarUrl} alt={YukinaConfig.username} />
+    </div>
+
+    <div class="hero-text">
+      <p class="eyebrow onload-animation" style="animation-delay: 60ms;">
+        {YukinaConfig.heroEyebrow}
+      </p>
+      <h1
+        class="hero-title font-display onload-animation"
+        style="animation-delay: 130ms;"
+      >
+        {YukinaConfig.username}
+      </h1>
+      <p class="hero-sign onload-animation" style="animation-delay: 200ms;">
+        {YukinaConfig.sign}
+      </p>
+
+      <div class="hero-actions onload-animation" style="animation-delay: 270ms;">
+        <a href="/projects" class="btn-primary">View projects</a>
+        <a href="/contact" class="btn-ghost">Get in touch</a>
+      </div>
+
+      <ul class="socials onload-animation" style="animation-delay: 340ms;">
+        {
+          YukinaConfig.socialLinks.map((item) => (
+            <li>
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.link}
+              >
+                <Icon name={item.icon} size={20} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    /* Renders outside the page's padded container (see the "hero" slot in
+       MainLayout), so it needs its own top offset to clear the fixed nav. */
+    @apply relative flex min-h-[72vh] flex-col justify-center overflow-hidden pb-10 pt-16 lg:min-h-[76vh] lg:pt-[4.5rem];
+  }
+
+  /* Genuinely full-width now that .hero sits outside the max-width
+     container, so a plain inset:0 reaches the true viewport edges. */
+  .hero-media-wrap {
+    @apply absolute inset-0 z-0;
+  }
+
+  .hero-media {
+    @apply h-full w-full object-cover;
+  }
+
+  .hero-yt-wrap {
+    @apply absolute inset-0 overflow-hidden;
+    pointer-events: none;
+  }
+
+  /* The YouTube Player API replaces [data-hero-yt-player] with its own
+     iframe, so this targets that injected element rather than anything
+     rendered by this component. */
+  .hero-yt-wrap :global(iframe) {
+    @apply absolute left-1/2 top-1/2 border-0;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-scrim {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      165deg,
+      oklch(18% 0.03 302 / 60%),
+      oklch(14% 0.025 302 / 78%)
+    );
+  }
+
+  /* Light palette + a ring on the avatar once media sits behind the text. */
+  .hero.has-media {
+    --text-color: oklch(98% 0.004 302);
+    --text-color-lighten: oklch(92% 0.006 302 / 82%);
+    --border-color: oklch(100% 0 0 / 30%);
+    --border-color-strong: oklch(100% 0 0 / 45%);
+  }
+
+  .hero-inner {
+    @apply relative z-10 mx-auto flex w-full flex-col items-start gap-8 px-6 md:flex-row md:items-center md:gap-14 lg:px-8;
+    max-width: var(--page-width-xl);
+  }
+
+  .avatar-wrap {
+    @apply shrink-0;
+  }
+
+  .avatar {
+    /* 25% larger than the original 128px / 176px. */
+    @apply h-40 w-40 rounded-full object-cover md:h-[220px] md:w-[220px];
+    border: 1px solid var(--border-color);
+  }
+
+  .hero-text {
+    @apply flex flex-col;
+  }
+
+  .hero-title {
+    @apply mt-3 text-6xl leading-[1.02] text-[var(--text-color)] lg:text-7xl;
+  }
+
+  .hero-sign {
+    @apply mt-5 max-w-xl text-base leading-relaxed text-[var(--text-color-lighten)];
+  }
+
+  .hero-actions {
+    @apply mt-8 flex flex-row flex-wrap items-center gap-3;
+  }
+
+  .btn-primary {
+    @apply rounded-full px-5 py-2.5 text-sm transition-all;
+    background-color: var(--primary-color);
+    color: var(--card-color);
+  }
+
+  .btn-primary:hover {
+    @apply opacity-85;
+  }
+
+  .btn-ghost {
+    @apply rounded-full px-5 py-2.5 text-sm text-[var(--text-color)] transition-all;
+    border: 1px solid var(--border-color-strong);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .socials {
+    @apply mt-8 flex flex-row items-center gap-5;
+  }
+
+  .socials a {
+    @apply text-[var(--text-color-lighten)] transition-colors;
+  }
+
+  .socials a:hover {
+    @apply text-[var(--primary-color)];
+  }
+</style>
+
+<script>
+  // Plain iframe embeds can't be forced past YouTube's own paused-state
+  // overlay (a big play button plus skip controls) when the browser blocks
+  // autoplay, which URL params alone don't reliably prevent. Driving the
+  // player through the real IFrame API and explicitly calling mute()+
+  // playVideo() once it's ready is the standard fix, so that never shows.
+  let apiLoadPromise: Promise<void> | null = null;
+
+  const loadYouTubeApi = (): Promise<void> => {
+    if ((window as any).YT?.Player) return Promise.resolve();
+    if (apiLoadPromise) return apiLoadPromise;
+
+    apiLoadPromise = new Promise((resolve) => {
+      const prevReady = (window as any).onYouTubeIframeAPIReady;
+      (window as any).onYouTubeIframeAPIReady = () => {
+        prevReady?.();
+        resolve();
+      };
+      if (!document.querySelector("script[data-youtube-api]")) {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        tag.dataset.youtubeApi = "true";
+        document.head.appendChild(tag);
+      }
+    });
+    return apiLoadPromise;
+  };
+
+  const activePlayers: any[] = [];
+
+  const sizePlayer = (player: any, wrap: HTMLElement) => {
+    const w = wrap.clientWidth;
+    const h = wrap.clientHeight;
+    const aspect = 16 / 9;
+    const width = w / h > aspect ? w : h * aspect;
+    const height = w / h > aspect ? w / aspect : h;
+    player.setSize(width, height);
+  };
+
+  const setupHeroYouTube = async () => {
+    const targets = document.querySelectorAll<HTMLElement>(
+      "[data-hero-yt-player]",
+    );
+    if (targets.length === 0) return;
+
+    await loadYouTubeApi();
+
+    targets.forEach((el) => {
+      // Guards against double-init: this runs once immediately and again on
+      // DOMContentLoaded, both of which can fire for the same element.
+      if (el.dataset.ytInitialized) return;
+      el.dataset.ytInitialized = "true";
+
+      const videoId = el.dataset.videoId;
+      const wrap = el.closest<HTMLElement>("[data-hero-yt]");
+      if (!videoId || !wrap) return;
+
+      const player = new (window as any).YT.Player(el, {
+        videoId,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          loop: 1,
+          playlist: videoId,
+          playsinline: 1,
+          modestbranding: 1,
+          rel: 0,
+          fs: 0,
+          disablekb: 1,
+          iv_load_policy: 3,
+        },
+        events: {
+          onReady: (event: any) => {
+            event.target.mute();
+            event.target.playVideo();
+            sizePlayer(event.target, wrap);
+          },
+        },
+      });
+
+      activePlayers.push(player);
+    });
+  };
+
+  const resizeHeroYouTube = () => {
+    activePlayers.forEach((player) => {
+      const iframe = player.getIframe?.();
+      const wrap = iframe?.closest<HTMLElement>("[data-hero-yt]");
+      if (wrap) sizePlayer(player, wrap);
+    });
+  };
+
+  const prevHandler = (window as any).__heroYtResizeHandler;
+  if (prevHandler) window.removeEventListener("resize", prevHandler);
+  (window as any).__heroYtResizeHandler = resizeHeroYouTube;
+  window.addEventListener("resize", resizeHeroYouTube, { passive: true });
+
+  setupHeroYouTube();
+  document.addEventListener("DOMContentLoaded", setupHeroYouTube);
+  if (window.swup?.hooks) {
+    window.swup.hooks.on("content:replace", setupHeroYouTube);
+  } else {
+    document.addEventListener("swup:enable", () => {
+      window.swup.hooks.on("content:replace", setupHeroYouTube);
+    });
+  }
+</script>

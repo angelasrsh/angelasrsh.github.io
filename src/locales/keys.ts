@@ -6,6 +6,8 @@ enum I18nKeys {
   nav_bar_home = "nav_bar_home",
   nav_bar_about = "nav_bar_about",
   nav_bar_engineering = "nav_bar_engineering",
+  nav_bar_projects = "nav_bar_projects",
+  nav_bar_contact = "nav_bar_contact",
   nav_bar_blog = "nav_bar_blog",
   // nav_bar_archive = "nav_bar_archive",
   // nav_bar_portfolio = "nav_bar_portfolio",

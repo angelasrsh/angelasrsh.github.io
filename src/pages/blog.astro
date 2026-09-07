@@ -1,15 +1,46 @@
 ---
-import PostArchiveLayout from "../layouts/PostArchiveLayout.astro";
 import Main from "../layouts/MainLayout.astro";
+import PostRow from "../components/PostRow.astro";
+import { GetSortedPosts } from "../utils/content";
 
-import I18nKeys from "../locales/keys";
-import { i18n } from "../locales/translation";
-import { GetArchives } from "../utils/content";
-
-const archiveMap = await GetArchives();
+const posts = await GetSortedPosts();
 ---
 
-<PostArchiveLayout
-  archiveMap={archiveMap}
-  title={i18n(I18nKeys.pages_archive_archive)}
-/>
+<Main
+  title="Blog"
+  subTitle="Notes on engineering, career, and whatever else I've been thinking about."
+>
+  <div class="post-list">
+    {
+      posts.map((entry, index) => (
+        <div
+          class="onload-animation"
+          style={`animation-delay: calc(var(--onload-animation-delay) + ${index} * var(--onload-animation-interval));`}
+        >
+          <PostRow
+            id={entry.id}
+            title={entry.data.title}
+            published={entry.data.published}
+            description={entry.data.description}
+            category={entry.data.category}
+            readingMetadata={
+              (entry.rendered?.metadata as any)?.frontmatter?.readingMetadata
+            }
+          />
+        </div>
+      ))
+    }
+  </div>
+  {posts.length === 0 && <p class="empty">No posts yet.</p>}
+</Main>
+
+<style>
+  .post-list {
+    @apply flex flex-col;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .empty {
+    @apply text-[var(--text-color-lighten)];
+  }
+</style>

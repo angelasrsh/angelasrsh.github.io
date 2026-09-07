@@ -1,0 +1,382 @@
+---
+import Main from "./MainLayout.astro";
+import Markdown from "../components/Markdown.astro";
+import CopyRight from "../components/misc/CopyRight.astro";
+import { formatDate } from "../utils/date";
+import { IdToSlug } from "../utils/hash";
+import YukinaConfig from "../../yukina.config";
+
+export interface Props {
+  title: string;
+  subTitle?: string;
+  cover?: string;
+  published?: Date;
+  category?: string;
+  tags?: string[];
+  /** Project-only: shown as a plain list under the meta line. */
+  technologies?: string[];
+  gallery?: string[];
+  repoLink?: string;
+  demoLink?: string;
+  readingMetadata?: { time: number; wordCount: number };
+  license?: { name: string; url?: string };
+  author?: string;
+  sourceLink?: string;
+  backHref?: string;
+  backLabel?: string;
+  prevHref?: string;
+  prevTitle?: string;
+  nextHref?: string;
+  nextTitle?: string;
+}
+
+const {
+  title,
+  subTitle,
+  cover,
+  published,
+  category,
+  tags,
+  technologies,
+  gallery,
+  repoLink,
+  demoLink,
+  readingMetadata,
+  license,
+  author,
+  sourceLink,
+  backHref,
+  backLabel,
+  prevHref,
+  prevTitle,
+  nextHref,
+  nextTitle,
+} = Astro.props;
+---
+
+<Main showHeader={false}>
+  {
+    backHref && (
+      <a href={backHref} class="back-fab" data-back-fab>
+        ← {backLabel ?? "Back"}
+      </a>
+    )
+  }
+
+  <article class="article-page">
+    <header class="article-header onload-animation">
+      <h1 class="article-title font-display">{title}</h1>
+      {subTitle && <p class="article-sub">{subTitle}</p>}
+
+      <div class="article-meta">
+        {published && <span>{formatDate(published, YukinaConfig.locale)}</span>}
+        {category && <span class="dot">·</span>}
+        {
+          category && (
+            <a href={`/categories/${IdToSlug(category)}`} class="meta-link">
+              {category}
+            </a>
+          )
+        }
+        {readingMetadata && <span class="dot">·</span>}
+        {readingMetadata && <span>{readingMetadata.time} min read</span>}
+      </div>
+
+      {
+        technologies && technologies.length > 0 && (
+          <ul class="chips">
+            {technologies.map((tech) => (
+              <li class="chip">{tech}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        tags && tags.length > 0 && (
+          <ul class="chips">
+            {tags.map((tag) => (
+              <li>
+                <a href={`/tags/${IdToSlug(tag)}`} class="chip chip-link">
+                  {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        (repoLink || demoLink) && (
+          <div class="links">
+            {repoLink && (
+              <a href={repoLink} target="_blank" rel="noopener noreferrer">
+                Source ↗
+              </a>
+            )}
+            {demoLink && (
+              <a href={demoLink} target="_blank" rel="noopener noreferrer">
+                Demo ↗
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    {
+      cover && (
+        <div class="cover onload-animation">
+          <img class="lozad" data-src={cover} alt={title} />
+        </div>
+      )
+    }
+
+    <div class="article onload-animation">
+      <Markdown>
+        <slot />
+      </Markdown>
+    </div>
+
+    {
+      gallery && gallery.length > 0 && (
+        <div class="gallery">
+          {gallery.map((src) => (
+            <figure class="gallery-item">
+              <img class="lozad" data-src={src} alt={title} />
+            </figure>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      published && license && (
+        <CopyRight
+          title={title}
+          published={published}
+          license={license}
+          author={author}
+          sourceLink={sourceLink}
+        />
+      )
+    }
+
+    {
+      (prevHref || nextHref || backHref) && (
+        <nav class="pager">
+          <div class="pager-side">
+            {prevHref ? (
+              <a href={prevHref} class="pager-link">
+                <span class="pager-label">Previous</span>
+                <span class="pager-title font-display">{prevTitle}</span>
+              </a>
+            ) : (
+              backHref && (
+                <a href={backHref} class="pager-link">
+                  <span class="pager-label">Back to</span>
+                  <span class="pager-title font-display">
+                    {backLabel ?? "Back"}
+                  </span>
+                </a>
+              )
+            )}
+          </div>
+          <div class="pager-side pager-right">
+            {nextHref ? (
+              <a href={nextHref} class="pager-link">
+                <span class="pager-label">Next</span>
+                <span class="pager-title font-display">{nextTitle}</span>
+              </a>
+            ) : (
+              backHref && (
+                <a href={backHref} class="pager-link">
+                  <span class="pager-label">Back to</span>
+                  <span class="pager-title font-display">
+                    {backLabel ?? "Back"}
+                  </span>
+                </a>
+              )
+            )}
+          </div>
+        </nav>
+      )
+    }
+  </article>
+</Main>
+
+<style>
+  .article-page {
+    @apply flex flex-col;
+  }
+
+  /* Floating pill, fixed to the lower-left of the screen. Hidden until the
+     reader has scrolled 45% of the way through the page. */
+  .back-fab {
+    @apply fixed bottom-6 left-6 z-20 rounded-full px-4 py-2.5 text-sm shadow-lg transition-all;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .back-fab.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .back-fab:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .article-header {
+    @apply mb-10;
+  }
+
+  .article-title {
+    @apply text-4xl leading-[1.08] text-[var(--text-color)] lg:text-5xl;
+  }
+
+  .article-sub {
+    @apply mt-4 max-w-2xl text-lg leading-relaxed text-[var(--text-color-lighten)];
+  }
+
+  .article-meta {
+    @apply mt-5 flex flex-row flex-wrap items-center gap-1.5 text-xs text-[var(--text-color-lighten)];
+  }
+
+  .dot {
+    @apply opacity-60;
+  }
+
+  .meta-link:hover {
+    color: var(--primary-color);
+  }
+
+  .chips {
+    @apply mt-4 flex flex-row flex-wrap gap-2;
+  }
+
+  .chip {
+    @apply rounded-full px-2.5 py-1 text-xs;
+    background-color: var(--primary-color-lighten);
+    color: var(--primary-color);
+  }
+
+  .chip-link {
+    @apply inline-block transition-opacity;
+  }
+
+  .chip-link:hover {
+    @apply opacity-75;
+  }
+
+  .links {
+    @apply mt-5 flex flex-row gap-4 text-sm;
+  }
+
+  .links a {
+    color: var(--primary-color);
+    @apply transition-opacity;
+  }
+
+  .links a:hover {
+    @apply opacity-75;
+  }
+
+  .cover {
+    @apply mb-12 overflow-hidden rounded-lg;
+    border: 1px solid var(--border-color);
+  }
+
+  .cover img {
+    @apply w-full object-cover;
+    max-height: 460px;
+  }
+
+  .gallery {
+    @apply mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2;
+  }
+
+  .gallery-item {
+    @apply overflow-hidden rounded-lg;
+    border: 1px solid var(--border-color);
+  }
+
+  .gallery-item img {
+    @apply w-full object-cover;
+  }
+
+  .pager {
+    @apply mt-16 grid grid-cols-2 gap-6 pt-8;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .pager-side {
+    @apply flex flex-col;
+  }
+
+  .pager-right {
+    @apply items-end text-right;
+  }
+
+  .pager-link {
+    @apply flex flex-col gap-1;
+  }
+
+  .pager-label {
+    @apply text-xs uppercase tracking-widest text-[var(--text-color-lighten)];
+  }
+
+  .pager-title {
+    @apply text-base leading-snug text-[var(--text-color)] transition-colors;
+  }
+
+  .pager-link:hover .pager-title {
+    color: var(--primary-color);
+  }
+</style>
+
+<script>
+  // Reveal the floating back button once the reader has scrolled 45% of the
+  // way through the page. Registered through swup's content:replace hook (the
+  // same pattern ScriptSetup.astro and NavBar.astro use) because this site
+  // navigates via client-side routing: a plain DOMContentLoaded listener only
+  // fires on a hard page load, so it never ran again after clicking between
+  // posts/projects, which is why the button silently failed to appear.
+  const setupBackFab = () => {
+    const fab = document.querySelector<HTMLElement>("[data-back-fab]");
+    if (!fab) return;
+
+    const prevHandler = (window as any).__backFabScrollHandler;
+    if (prevHandler) window.removeEventListener("scroll", prevHandler);
+
+    const onScroll = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      fab.classList.toggle("is-visible", progress >= 0.45);
+    };
+    (window as any).__backFabScrollHandler = onScroll;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  };
+
+  document.addEventListener("DOMContentLoaded", setupBackFab);
+  if (window.swup?.hooks) {
+    setupBackFab();
+    window.swup.hooks.on("content:replace", setupBackFab);
+  } else {
+    document.addEventListener("swup:enable", () => {
+      window.swup.hooks.on("content:replace", setupBackFab);
+    });
+  }
+</script>
