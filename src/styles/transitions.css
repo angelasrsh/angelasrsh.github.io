@@ -1,9 +1,3 @@
-.transition-leaving {
-  transition:
-    transform 300ms,
-    opacity 300ms;
-}
-
 html.is-changing .transition-main {
   transition: opacity 250ms ease-in-out;
 }
@@ -13,10 +7,5 @@ html.is-leaving .transition-main {
 }
 
 html.is-animating .transition-main {
-  opacity: 0;
-}
-
-html.is-animating.is-leaving .transition-leaving {
-  transform: translateY(2rem);
   opacity: 0;
 }

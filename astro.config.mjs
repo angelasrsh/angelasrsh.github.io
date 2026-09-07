@@ -26,7 +26,11 @@ export default defineConfig({
     icon(),
     swup({
       theme: false,
-      containers: ["main", "#hero-slot"],
+      // #page-container is swapped as a whole (not just its child <main>) so
+      // its own per-page classes (is-wide/is-narrow/no-top-pad) get freshly
+      // replaced on every client-side navigation, not left stale from
+      // whichever page was last hard-loaded.
+      containers: ["#page-container", "#hero-slot"],
       smoothScrolling: true,
       progress: true,
       cache: true,

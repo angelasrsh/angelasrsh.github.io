@@ -30,8 +30,16 @@ const hasHero = Astro.slots.has("hero");
   </div>
 
   <div
+    id="page-container"
     class:list={[
       "page-container",
+      // Swup's cross-fade timing keys off elements matching
+      // [class*="transition-"] (see src/styles/transitions.css); without
+      // one present it silently skips the fade instead of erroring.
+      // transition-leaving (a translateY slide) isn't used here: transforms
+      // don't affect layout, but the visible downward shift right on click,
+      // before navigation even completes, reads as the page glitching.
+      "transition-main",
       wide ? "is-wide" : "is-narrow",
       hasHero && "no-top-pad",
     ]}

@@ -329,14 +329,46 @@ const isActive = (href: string) => {
     onScroll();
   };
 
+  // Mirrors the isActive() logic in this component's frontmatter. That
+  // version only runs at server-render time, so it's correct on a hard page
+  // load; but the navbar itself lives outside the containers swup swaps
+  // between pages, so its markup is never re-rendered on a client-side
+  // navigation. Without this, the active-link underline/highlight stays
+  // frozen on whichever page was last hard-loaded until the next refresh.
+  const isActivePath = (href: string, pathname: string) => {
+    if (href === "/") return pathname === "/";
+    if (!href.startsWith("/")) return false;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  const updateActiveNav = () => {
+    const pathname = window.location.pathname;
+    document
+      .querySelectorAll<HTMLAnchorElement>(".menu-link, .mobile-nav-item")
+      .forEach((link) => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+        link.classList.toggle("is-active", isActivePath(href, pathname));
+      });
+  };
+
   const init = () => {
     setupNav();
     setupTheme();
     setupScrollState();
+    updateActiveNav();
   };
 
   document.addEventListener("DOMContentLoaded", init);
   if (document.readyState !== "loading") init();
+
+  if (window.swup?.hooks) {
+    window.swup.hooks.on("content:replace", updateActiveNav);
+  } else {
+    document.addEventListener("swup:enable", () => {
+      window.swup.hooks.on("content:replace", updateActiveNav);
+    });
+  }
 </script>
 
 <script is:inline>
