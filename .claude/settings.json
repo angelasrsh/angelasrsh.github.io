@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -o '<div id=\"hero-slot\">.\\\\{0,80\\\\}' dist/about/index.html)"
+    ]
+  }
+}

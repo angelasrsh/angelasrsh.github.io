@@ -40,15 +40,15 @@ const YukinaConfig: Configuration = {
   // Optional full-bleed image or video behind the hero. Drop the file under
   // public/ and point src at it, e.g. public/images/hero-bg.jpg -> "/images/hero-bg.jpg".
   // Hero text switches to a light palette automatically once this is set.
-  // heroBackground: {
-  //   type: "image",
-  //   src: "/images/banners/tower.jpg",
-  // },
   heroBackground: {
-    type: "video",
-    src: "https://www.youtube.com/watch?v=cURXU87JRZs&list=RDcURXU87JRZs&start_radio=1",
-    poster: "/images/hero-bg-poster.jpg",
+    type: "image",
+    src: "/images/Teampic.jpg",
   },
+  // heroBackground: {
+  //   type: "video",
+  //   src: "/videos/hero-bg.mp4",
+  //   poster: "/images/hero-bg-poster.jpg",
+  // },
 
   socialLinks: [
     {
