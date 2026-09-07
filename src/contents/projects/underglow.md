@@ -5,7 +5,7 @@ description: Addressable LED underglow for our electric race car.
 cover: "/images/underglow.png"
 technologies: ["ESP32", "FastLED", "C++"]
 order: 5
-draft: false
+draft: true
 ---
 
 ## Overview

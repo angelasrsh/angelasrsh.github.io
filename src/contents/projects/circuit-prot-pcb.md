@@ -5,7 +5,7 @@ description: Circuit protection method test PCB using Zener + fuse + resistor + 
 cover: "/images/circuitprot.png"
 technologies: ["KiCad", "PCB Design", "LHR"]
 order: 3
-draft: false
+draft: true
 ---
 
 ## Overview

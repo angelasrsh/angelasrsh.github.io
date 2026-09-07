@@ -5,7 +5,7 @@ description: Embedded system videogame device with custom Overcooked 2 game soft
 cover: "/images/319Game.png"
 technologies: ["Eagle", "PCB Design", "C", "Assembly"]
 order: 8
-draft: false
+draft: true
 ---
 
 ## Overview

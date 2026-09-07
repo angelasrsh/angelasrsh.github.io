@@ -5,7 +5,7 @@ description: Data acquisition PCB measuring steering wheel angle with a Hall eff
 cover: "/images/steeringencoder.png"
 technologies: ["STM32", "KiCad", "PCB Design", "LHR", "C"]
 order: 2
-draft: false
+draft: true
 ---
 
 ## Overview

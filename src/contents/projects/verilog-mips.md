@@ -5,7 +5,7 @@ description: Verilog instruction memory processing and testbenching on an FPGA.
 cover: "/images/waveform.png"
 technologies: ["FPGA", "Testbench", "Verilog"]
 order: 9
-draft: false
+draft: true
 ---
 
 ## Overview

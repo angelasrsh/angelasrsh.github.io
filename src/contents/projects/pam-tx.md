@@ -5,7 +5,7 @@ description: Pulse shaped digital data transmission with Pulse Amplitude Modulat
 cover: "/images/pam.png"
 technologies: ["Signal Processing", "STM32", "PAM"]
 order: 1
-draft: false
+draft: true
 ---
 
 ## Overview

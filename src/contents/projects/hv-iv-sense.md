@@ -5,7 +5,7 @@ description: Voltage and current sense circuit using Hall effect transducers, pl
 cover: "/images/hv-sense.png"
 technologies: ["C", "Power Electronics", "PCB Design", "KiCad"]
 order: 4
-draft: false
+draft: true
 ---
 
 ## Overview

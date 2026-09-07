@@ -5,7 +5,7 @@ description: Raytracer built for my Computer Graphics Honors class - 3D renderin
 cover: "/images/raytracer.jpg"
 technologies: ["C++", "Computer Graphics"]
 order: 6
-draft: false
+draft: true
 ---
 
 ## Overview

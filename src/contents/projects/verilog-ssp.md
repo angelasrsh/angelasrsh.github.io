@@ -5,7 +5,7 @@ description: Verilog SSP with a Wishbone SoC interconnect.
 cover: "/images/ssp.png"
 technologies: ["VLSI", "Verilog", "Testbench"]
 order: 7
-draft: false
+draft: True
 ---
 
 ## Overview
