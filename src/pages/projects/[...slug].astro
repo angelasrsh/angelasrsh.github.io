@@ -5,7 +5,9 @@ import { GetSortedProjects } from "../../utils/content";
 
 export async function getStaticPaths() {
   // Readable slugs for projects: the filename is the URL.
-  const projects = await getCollection("projects");
+  const projects = await getCollection("projects", ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
   return projects.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },

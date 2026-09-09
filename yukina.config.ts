@@ -34,7 +34,7 @@ const YukinaConfig: Configuration = {
 
   username: "Angela Suresh",
   heroEyebrow: "MS ECE @ CU Boulder | BS ECE @ UT Austin ",
-  sign: "Electrical and Computer Engineering student focused on power electronics and systems design. Hardware, firmware, and creativity",
+  sign: "Electrical and Computer Engineering student focused on power electronics and systems design. Hardware, firmware, and creativity.",
   avatarUrl: "/images/avatar.png",
 
   // Optional full-bleed image or video behind the hero. Drop the file under

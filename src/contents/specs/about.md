@@ -1,6 +1,6 @@
 # Student. Engineer. Creative. 
 
-I'm an Electrical and Computer Engineering student at the University of Texas at Austin. With a focus on integrated circuits and systems design, I work on creative and impactful projects. Feel free to reach out!
+I'm an Electrical and Computer Engineering student studying power electronics at the University of Colorado Boulder. I work on creative and impactful projects. Feel free to reach out!
 
 Contact Me: 
 -------------------------
